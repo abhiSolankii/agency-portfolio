@@ -42,7 +42,7 @@ const faqs = [
   },
 ];
 
-const Faq = ({ forwardedRef }) => {
+const Faqs = ({ forwardedRef }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
 
@@ -142,4 +142,4 @@ const Faq = ({ forwardedRef }) => {
   );
 };
 
-export default Faq;
+export default Faqs;

@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
 import About from "@/components/About";
-import Faq from "@/components/Faq";
+import Faqs from "@/components/Faqs";
 
 const Page = () => {
   const homeRef = useRef(null);
@@ -53,7 +53,7 @@ const Page = () => {
           <Testimonials />
         </section>
         <section ref={faqRef}>
-          <Faq />
+          <Faqs />
         </section>
         <section ref={contactRef}>
           <Contact />
