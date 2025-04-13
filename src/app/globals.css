@@ -7,4 +7,30 @@ body {
   background-color: black;
   color: white;
   margin: 0;
+  padding: 0;
+}
+
+/* Remove the previous scrollbar hiding code and replace with this */
+html {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  overflow-y: unset;
+}
+
+/* Hide scrollbar while keeping functionality */
+@media screen and (min-width: 0px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 }

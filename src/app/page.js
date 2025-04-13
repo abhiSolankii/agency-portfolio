@@ -8,6 +8,7 @@ import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
 import About from "@/components/About";
 import Faqs from "@/components/Faqs";
+import Head from "next/head";
 
 const Page = () => {
   const homeRef = useRef(null);
@@ -27,40 +28,50 @@ const Page = () => {
   };
 
   return (
-    <div className="relative h-screen">
-      <Navbar
-        scrollToSection={scrollToSection}
-        refs={{
-          homeRef,
-          aboutRef,
-          servicesRef,
-          testimonialsRef,
-          faqRef,
-          contactRef,
-        }}
-      />
-      <div className="z-10 flex flex-col min-h-screen">
-        <section ref={homeRef}>
-          <Home />
-        </section>
-        <section ref={aboutRef}>
-          <About />
-        </section>
-        <section ref={servicesRef}>
-          <Services />
-        </section>
-        <section ref={testimonialsRef}>
-          <Testimonials />
-        </section>
-        <section ref={faqRef}>
-          <Faqs />
-        </section>
-        <section ref={contactRef}>
-          <Contact />
-        </section>
+    <>
+      <Head>
+        <title>ByteNoBS - Unleash Your Tech Vision</title>
+        <meta
+          name="description"
+          content="ByteNoBS delivers no-nonsense tech solutions with power and precision. Unleash your vision today!"
+        />
+      </Head>
+
+      <div className="relative h-screen">
+        <Navbar
+          scrollToSection={scrollToSection}
+          refs={{
+            homeRef,
+            aboutRef,
+            servicesRef,
+            testimonialsRef,
+            faqRef,
+            contactRef,
+          }}
+        />
+        <div className="z-10 flex flex-col min-h-screen">
+          <section ref={homeRef}>
+            <Home />
+          </section>
+          <section ref={aboutRef}>
+            <About />
+          </section>
+          <section ref={servicesRef}>
+            <Services />
+          </section>
+          <section ref={testimonialsRef}>
+            <Testimonials />
+          </section>
+          <section ref={faqRef}>
+            <Faqs />
+          </section>
+          <section ref={contactRef}>
+            <Contact />
+          </section>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

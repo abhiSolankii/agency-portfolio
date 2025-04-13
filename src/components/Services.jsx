@@ -44,6 +44,7 @@ import {
   FaShoppingCart,
   FaAws,
 } from "react-icons/fa";
+import Head from "next/head";
 
 // Service data
 const serviceCategories = [
@@ -175,144 +176,154 @@ const Services = ({ forwardedRef }) => {
   };
 
   return (
-    <section
-      ref={forwardedRef}
-      className="bg-[#000000] text-[#F5E6CC] py-20 px-4 relative overflow-hidden"
-    >
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-[#D4A017]/5 blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-[#4A2C2A]/5 blur-3xl"></div>
-        <div className="absolute h-px w-full bg-gradient-to-r from-transparent via-[#D4A017]/20 to-transparent top-0"></div>
-      </div>
-
-      <div className="container mx-auto relative z-10">
-        {/* Section heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-4 inline-block relative">
-            Our <span className="text-[#D4A017]">Services</span>
-            <div className="h-1 w-20 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
-          </h2>
-          <p className="text-xl max-w-3xl mx-auto mt-6">
-            We provide innovative tech solutions without the fluff. From custom
-            websites to specialized applications, we build what you need.
-          </p>
+    <>
+      <Head>
+        <title>ByteNoBS - Services | No-Nonsense Tech Solutions</title>
+        <meta
+          name="description"
+          content="Explore ByteNoBS's no-nonsense tech services. From custom web development to AI solutions, we deliver results without the fluff."
+        />
+      </Head>
+      <section
+        ref={forwardedRef}
+        className="bg-[#000000] text-[#F5E6CC] py-20 px-4 relative overflow-hidden"
+      >
+        {/* Background elements */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-[#D4A017]/5 blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-[#4A2C2A]/5 blur-3xl"></div>
+          <div className="absolute h-px w-full bg-gradient-to-r from-transparent via-[#D4A017]/20 to-transparent top-0"></div>
         </div>
 
-        {/* Services carousel */}
-        <div className="my-4 w-full flex justify-center mt-12">
-          <Carousel className="w-full max-w-5xl">
-            <CarouselContent>
-              {serviceCategories.map((item) => (
-                <CarouselItem
-                  key={item.id}
-                  className="md:basis-1/2 lg:basis-1/3 pl-4"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="p-1"
+        <div className="container mx-auto relative z-10">
+          {/* Section heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 inline-block relative">
+              Our <span className="text-[#D4A017]">Services</span>
+              <div className="h-1 w-20 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto mt-6">
+              We provide innovative tech solutions without the fluff. From
+              custom websites to specialized applications, we build what you
+              need.
+            </p>
+          </div>
+
+          {/* Services carousel */}
+          <div className="my-4 w-full flex justify-center mt-12">
+            <Carousel className="w-full max-w-5xl">
+              <CarouselContent>
+                {serviceCategories.map((item) => (
+                  <CarouselItem
+                    key={item.id}
+                    className="md:basis-1/2 lg:basis-1/3 pl-4"
                   >
-                    <div className="bg-gradient-to-b from-[#D4A017]/20 to-[#4A2C2A]/20 p-[1px] rounded-xl h-full">
-                      <div className="bg-[#000000] h-full rounded-xl p-6 flex flex-col shadow-lg transition-all duration-300 hover:translate-y-[-5px]">
-                        <div className="text-[#D4A017] mb-4 flex justify-center">
-                          {item.icon}
-                        </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="p-1"
+                    >
+                      <div className="bg-gradient-to-b from-[#D4A017]/20 to-[#4A2C2A]/20 p-[1px] rounded-xl h-full">
+                        <div className="bg-[#000000] h-full rounded-xl p-6 flex flex-col shadow-lg transition-all duration-300 hover:translate-y-[-5px]">
+                          <div className="text-[#D4A017] mb-4 flex justify-center">
+                            {item.icon}
+                          </div>
 
-                        <h3 className="text-2xl font-bold mb-3 text-[#F5E6CC]">
-                          {item.name}
-                        </h3>
+                          <h3 className="text-2xl font-bold mb-3 text-[#F5E6CC]">
+                            {item.name}
+                          </h3>
 
-                        <p className="text-[#F5E6CC]/80 mb-6">
-                          {item.description}
-                        </p>
+                          <p className="text-[#F5E6CC]/80 mb-6">
+                            {item.description}
+                          </p>
 
-                        <div className="flex-1 flex flex-col">
-                          <div className="space-y-2">
-                            {item.services.map((service, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center py-2 px-3 text-sm bg-[#4A2C2A]/20 rounded-lg"
-                              >
-                                <div className="w-2 h-2 rounded-full bg-[#D4A017] mr-3"></div>
-                                <span>{service}</span>
-                              </div>
-                            ))}
+                          <div className="flex-1 flex flex-col">
+                            <div className="space-y-2">
+                              {item.services.map((service, index) => (
+                                <div
+                                  key={index}
+                                  className="flex items-center py-2 px-3 text-sm bg-[#4A2C2A]/20 rounded-lg"
+                                >
+                                  <div className="w-2 h-2 rounded-full bg-[#D4A017] mr-3"></div>
+                                  <span>{service}</span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                </CarouselItem>
+                    </motion.div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
+                <CarouselPrevious className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
+                <CarouselNext className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
+              </div>
+            </Carousel>
+          </div>
+
+          {/* Separator */}
+          <div className="w-full max-w-4xl mx-auto my-20 h-px bg-gradient-to-r from-transparent via-[#D4A017]/30 to-transparent"></div>
+
+          {/* Tech Stack Section */}
+          <motion.div
+            ref={ref}
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+            className="mt-14 max-w-5xl mx-auto"
+          >
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Our Tech <span className="text-[#D4A017]">Arsenal</span>
+            </h2>
+
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
+              {techStack.map((tech, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="aspect-square"
+                >
+                  <TooltipProvider delayDuration={100}>
+                    <Tooltip>
+                      <TooltipTrigger className="w-full h-full bg-[#000000] border border-[#D4A017]/20 rounded-xl flex justify-center items-center group hover:bg-[#D4A017]/5 transition-all duration-300">
+                        <div className="text-3xl md:text-4xl text-[#D4A017]/80 group-hover:text-[#D4A017] transition-all duration-300">
+                          {tech.icon}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-[#000000] border border-[#D4A017]/30 text-[#F5E6CC]">
+                        <p>{tech.name}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </motion.div>
               ))}
-            </CarouselContent>
-            <div className="absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
-              <CarouselPrevious className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
-              <CarouselNext className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
             </div>
-          </Carousel>
+
+            <div className="mt-16 text-center">
+              <p className="text-lg max-w-2xl mx-auto">
+                Don&apos;t see what you&apos;re looking for? No problem. We
+                adapt to your tech needs, not the other way around.
+              </p>
+              <div className="mt-8 inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
+                <button
+                  className="bg-[#000000] rounded-full px-6 py-3 text-[#F5E6CC] font-bold hover:bg-transparent transition-all duration-300"
+                  // onClick={() =>
+                  //   document
+                  //     .getElementById("contact")
+                  //     .scrollIntoView({ behavior: "smooth" })
+                  // }
+                >
+                  Discuss Your Project
+                </button>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Separator */}
-        <div className="w-full max-w-4xl mx-auto my-20 h-px bg-gradient-to-r from-transparent via-[#D4A017]/30 to-transparent"></div>
-
-        {/* Tech Stack Section */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="mt-14 max-w-5xl mx-auto"
-        >
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Our Tech <span className="text-[#D4A017]">Arsenal</span>
-          </h2>
-
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
-            {techStack.map((tech, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="aspect-square"
-              >
-                <TooltipProvider delayDuration={100}>
-                  <Tooltip>
-                    <TooltipTrigger className="w-full h-full bg-[#000000] border border-[#D4A017]/20 rounded-xl flex justify-center items-center group hover:bg-[#D4A017]/5 transition-all duration-300">
-                      <div className="text-3xl md:text-4xl text-[#D4A017]/80 group-hover:text-[#D4A017] transition-all duration-300">
-                        {tech.icon}
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-[#000000] border border-[#D4A017]/30 text-[#F5E6CC]">
-                      <p>{tech.name}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <p className="text-lg max-w-2xl mx-auto">
-              Don&apos;t see what you&apos;re looking for? No problem. We adapt
-              to your tech needs, not the other way around.
-            </p>
-            <div className="mt-8 inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
-              <button
-                className="bg-[#000000] rounded-full px-6 py-3 text-[#F5E6CC] font-bold hover:bg-transparent transition-all duration-300"
-                // onClick={() =>
-                //   document
-                //     .getElementById("contact")
-                //     .scrollIntoView({ behavior: "smooth" })
-                // }
-              >
-                Discuss Your Project
-              </button>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
