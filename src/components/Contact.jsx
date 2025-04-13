@@ -1,113 +1,246 @@
 "use client";
-import React from "react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Card, CardContent } from "./ui/card";
+import React, { useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { FiMail, FiSend } from "react-icons/fi";
+import { SiLinkedin, SiInstagram, SiFacebook, SiX } from "react-icons/si";
 
 const Contact = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("idle");
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Submit function sending JSON to Formspree
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xqapndbd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" }); // Reset form
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+
+    // Reset status after 3 seconds
+    setTimeout(() => setStatus("idle"), 3000);
+  };
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
+
   return (
-    <section className="bg-black text-white min-h-screen w-full py-16 flex flex-col justify-center">
-      <div className="container mx-auto px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Get in Touch
-          </h1>
-          <p className="text-lg max-w-xl mx-auto text-gray-400">
-            Whether you have a question, want to start a project, or just want
-            to say hi, I{"'"}ll try my best to get back to you!
+    <section className="bg-[#000000] text-[#F5E6CC] py-20 px-4 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-[#D4A017]/5 blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-[#4A2C2A]/5 blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
+        {/* Section heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold mb-4 inline-block relative">
+            Let’s <span className="text-[#D4A017]">Talk</span>
+            <div className="h-1 w-20 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
+          </h2>
+          <p className="text-xl max-w-3xl mx-auto mt-6">
+            Got an idea? A problem? Or just want to chat tech? Drop us a line—no
+            fluff, just action.
           </p>
         </div>
 
-        {/* Contact Form & Info */}
-        <div className="grid gap-8 lg:grid-cols-2 items-start w-[90%] md:w-[80%] mx-auto">
-          {/* Form Section */}
-          <Card className="bg-[#1f1f25] rounded-xl">
-            <CardContent className="p-4 md:p-8">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <motion.div
+            ref={ref}
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+            className="bg-gradient-to-b from-[#D4A017]/20 to-[#4A2C2A]/20 p-[1px] rounded-xl"
+          >
+            <div className="bg-[#000000] rounded-xl p-8">
               <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-gray-400">
+                <motion.div variants={itemVariants}>
+                  <label className="block text-sm font-semibold mb-2">
                     Name
                   </label>
                   <Input
-                    id="name"
                     type="text"
-                    className="mt-2 bg-gray-800 text-white rounded-xl"
-                    placeholder="Your Name"
+                    placeholder="Your name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="bg-[#4A2C2A]/20 border-[#D4A017]/30 text-[#F5E6CC] placeholder-[#F5E6CC]/50 focus:border-[#D4A017]"
                   />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-gray-400">
+                </motion.div>
+                <motion.div variants={itemVariants}>
+                  <label className="block text-sm font-semibold mb-2">
                     Email
                   </label>
                   <Input
-                    id="email"
                     type="email"
-                    className="mt-2 bg-gray-800 text-white rounded-xl"
-                    placeholder="you@example.com"
+                    placeholder="Your email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="bg-[#4A2C2A]/20 border-[#D4A017]/30 text-[#F5E6CC] placeholder-[#F5E6CC]/50 focus:border-[#D4A017]"
                   />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-gray-400">
+                </motion.div>
+                <motion.div variants={itemVariants}>
+                  <label className="block text-sm font-semibold mb-2">
                     Message
                   </label>
                   <Textarea
-                    id="message"
-                    className="mt-2 bg-gray-800 text-white rounded-xl"
-                    rows="6"
-                    placeholder="Your message..."
+                    placeholder="Tell us about your project"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="bg-[#4A2C2A]/20 border-[#D4A017]/30 text-[#F5E6CC] placeholder-[#F5E6CC]/50 focus:border-[#D4A017] h-32"
                   />
-                </div>
-                <Button className="bg-purple-600 hover:bg-purple-700 w-full rounded-xl">
-                  Send Message
-                </Button>
+                </motion.div>
+                <motion.div variants={itemVariants}>
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={status === "sending"}
+                    className={`w-full bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#000000] font-bold hover:bg-[#D4A017] transition-all duration-300 ${
+                      status === "sending"
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
+                  >
+                    <FiSend className="mr-2" />
+                    {status === "sending" ? "Sending..." : "Send Message"}
+                  </Button>
+                </motion.div>
+                {/* Status Feedback */}
+                {status === "success" && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-[#D4A017] text-center"
+                  >
+                    Message sent! We’ll get back to you soon.
+                  </motion.p>
+                )}
+                {status === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-red-400 text-center"
+                  >
+                    Oops, something went wrong. Try again later.
+                  </motion.p>
+                )}
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </motion.div>
 
-          {/* Contact Info Section */}
-          <div className="flex flex-col space-y-8">
-            {/* Info Cards */}
-            <div className="bg-[#1f1f25] p-6 rounded-xl shadow-lg text-center">
-              <h3 className="text-2xl font-semibold mb-2 text-white">Email</h3>
-              <p className="text-gray-400">websol@example.com</p>
-            </div>
-            <div className="bg-[#1f1f25] p-6 rounded-xl shadow-lg text-center">
-              <h3 className="text-2xl font-semibold mb-2 text-white">Phone</h3>
-              <p className="text-gray-400">+91 2345677890</p>
-            </div>
-            <div className="bg-[#1f1f25] p-6 rounded-xl shadow-lg text-center">
-              <h3 className="text-2xl font-semibold mb-2 text-white">
-                Location
-              </h3>
-              <p className="text-gray-400">12//49, Pune, IN</p>
-            </div>
-            {/* Social Icons */}
-            <div className="flex justify-center space-x-6">
+          {/* Contact Info & Socials */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+            className="space-y-8"
+          >
+            <motion.div variants={itemVariants}>
+              <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
               <a
-                href="https://github.com/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:bytenobs@gmail.com"
+                className="flex items-center text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
               >
-                <FaGithub className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
+                <FiMail className="mr-3 text-2xl" />
+                bytenobs@gmail.com
               </a>
-              <a
-                href="https://linkedin.com/in/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaLinkedin className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
-              </a>
-              <a
-                href="https://x.com/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaTwitter className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
-              </a>
-            </div>
-          </div>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <h3 className="text-2xl font-bold mb-4">Follow Us</h3>
+              <div className="flex space-x-6">
+                <a
+                  href="https://www.linkedin.com/company/bytenobs/posts/?feedView=all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                >
+                  <SiLinkedin className="text-3xl" />
+                </a>
+                <a
+                  href="https://www.instagram.com/bytenobs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                >
+                  <SiInstagram className="text-3xl" />
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61574937133272"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                >
+                  <SiFacebook className="text-3xl" />
+                </a>
+                <a
+                  href="https://x.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                >
+                  <SiX className="text-3xl" />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

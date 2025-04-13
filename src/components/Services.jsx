@@ -1,13 +1,8 @@
 "use client";
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import React, { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -16,373 +11,308 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiReact,
-  SiNodedotjs,
-  SiFigma,
-  SiMongodb,
-  SiRedux,
-  SiNextdotjs,
-  SiAdobe,
-  SiScreencastify,
-} from "react-icons/si";
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+// Tech icons
 import {
-  FaAws,
-  FaChartBar,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiTailwindcss,
+  SiMongodb,
+  SiExpress,
+  SiVercel,
+  SiTypescript,
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiFigma,
+  SiGit,
+  SiFirebase,
+} from "react-icons/si";
+import {
   FaCode,
-  FaCreditCard,
-  FaDocker,
-  FaGit,
-  FaSearch,
+  FaBrain,
+  FaTools,
   FaServer,
-  FaShareAlt,
+  FaMobileAlt,
+  FaDatabase,
+  FaShoppingCart,
+  FaAws,
 } from "react-icons/fa";
 
-// const serviceList = [
-//   {
-//     id: 1,
-//     name: "Web Development",
-//     description:
-//       "Crafting responsive and dynamic websites that cater to your business needs. Our web development services include front-end and back-end solutions.",
-//     technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
-//     duration: "2-3 months",
-//     priceRange: "$2000 - $5000",
-//   },
-//   {
-//     id: 2,
-//     name: "Mobile App Development",
-//     description:
-//       "Creating user-friendly mobile applications for both iOS and Android platforms, ensuring seamless user experiences and high performance.",
-//     technologies: ["React Native", "Flutter", "Swift", "Kotlin"],
-//     duration: "3-6 months",
-//     priceRange: "$3000 - $8000",
-//   },
-//   {
-//     id: 3,
-//     name: "UI/UX Design",
-//     description:
-//       "Designing intuitive and engaging user interfaces that enhance user experience. We focus on usability and aesthetic appeal.",
-//     technologies: ["Figma", "Sketch", "Adobe XD"],
-//     duration: "1-2 months",
-//     priceRange: "$1500 - $4000",
-//   },
-//   {
-//     id: 4,
-//     name: "Digital Marketing",
-//     description:
-//       "Implementing effective digital marketing strategies, including SEO, social media marketing, and content marketing to boost your online presence.",
-//     technologies: ["SEO", "PPC", "Social Media Marketing", "Content Creation"],
-//     duration: "Ongoing",
-//     priceRange: "$500 - $5000/month",
-//   },
-//   {
-//     id: 5,
-//     name: "E-commerce Solutions",
-//     description:
-//       "Providing comprehensive e-commerce solutions that include website development, payment gateway integration, and inventory management.",
-//     technologies: ["Shopify", "WooCommerce", "Magento"],
-//     duration: "2-4 months",
-//     priceRange: "$2500 - $7000",
-//   },
-//   {
-//     id: 6,
-//     name: "Cloud Services",
-//     description:
-//       "Offering cloud solutions for storage, computing, and networking, ensuring scalable and secure access to your data.",
-//     technologies: [
-//       "Cloud Hosting",
-//       "Data Backup",
-//       "Infrastructure as a Service (IaaS)",
-//     ],
-//     duration: "1 month",
-//     priceRange: "$1000 - $3000",
-//   },
-//   {
-//     id: 7,
-//     name: "Consulting Services",
-//     description:
-//       "Providing expert consulting services to help you strategize and implement the right technology solutions for your business.",
-//     technologies: [
-//       "Business Strategy",
-//       "Technology Adoption",
-//       "Process Optimization",
-//     ],
-//     duration: "Varies",
-//     priceRange: "$100 - $500/hour",
-//   },
-//   {
-//     id: 8,
-//     name: "Content Creation",
-//     description:
-//       "Developing high-quality content for websites, blogs, and social media that engages your audience and enhances your brand.",
-//     technologies: [
-//       "Business Strategy",
-//       "Technology Adoption",
-//       "Process Optimization",
-//     ],
-//     types: ["Articles", "Videos", "Infographics"],
-//     duration: "Ongoing",
-//     priceRange: "$300 - $2000/month",
-//   },
-// ];
-const serviceList = [
+// Service data
+const serviceCategories = [
   {
     id: 1,
-    name: "Core Services",
+    name: "Custom Web Development",
+    icon: <FaCode className="text-4xl" />,
     description:
-      "Comprehensive offerings to build and enhance your online presence.",
+      "Sleek, fast, responsive websites that hit the mark. No fluff, just results.",
     services: [
-      "Custom Website Development & Responsive Design",
-      "E-Commerce Solutions",
-      "Web Application Development",
-      "Mobile-First Development (PWAs)",
-      "UI/UX Design",
+      "Custom Business Websites",
+      "Portfolio Sites",
+      "Landing Pages",
+      "Admin Dashboards",
+      "Interactive Web Applications",
     ],
   },
   {
     id: 2,
-    name: "Enhanced Functionality",
-    description: "Adding features that elevate your website's capabilities.",
+    name: "Application Development",
+    icon: <FaTools className="text-4xl" />,
+    description:
+      "Specialized applications tailored to solve your unique business challenges.",
     services: [
-      "Content Management Systems (CMS)",
-      "API Development & Integration",
-      "Third-Party Integrations (CRM, ERP, Analytics)",
-      "Custom Plugin/Module Development",
+      "Expense Managers",
+      "Inventory Systems",
+      "PDF Tools & Utilities",
+      "Task Management Solutions",
+      "Custom Business Applications",
     ],
   },
   {
     id: 3,
-    name: "Performance & Security",
-    description: "Ensuring your website runs smoothly and securely.",
+    name: "AI-Powered Solutions",
+    icon: <FaBrain className="text-4xl" />,
+    description:
+      "Cutting-edge AI integration to give your business the competitive edge.",
     services: [
-      "Website Speed Optimization",
-      "Security Enhancements",
-      "Cloud Services & Hosting",
-      "DevOps & Automation",
+      "AI-Powered Chatbots",
+      "Data Analysis Tools",
+      "Content Generation Systems",
+      "Predictive Analytics",
+      "Automation Solutions",
     ],
   },
   {
     id: 4,
-    name: "Digital Marketing Support",
-    description: "Boosting your online visibility and engagement.",
+    name: "E-Commerce Development",
+    icon: <FaShoppingCart className="text-4xl" />,
+    description: "Online store solutions that convert visitors into customers.",
     services: [
-      "SEO Optimization",
-      "Content Strategy",
-      "Social Media Integration",
-      "Email Marketing Integration",
+      "Custom E-Commerce Platforms",
+      "Payment Gateway Integration",
+      "Product Catalog Management",
+      "User Experience Optimization",
+      "Mobile Shopping Experiences",
     ],
   },
   {
     id: 5,
-    name: "Ongoing Support",
-    description: "Providing continuous assistance for your digital needs.",
+    name: "Server & Database Solutions",
+    icon: <FaServer className="text-4xl" />,
+    description:
+      "Robust back-end infrastructure that powers your applications reliably.",
     services: [
-      "Website Maintenance & Updates",
-      "Technical Support",
-      "Backup & Recovery Solutions",
+      "Database Design & Optimization",
+      "API Development",
+      "Cloud Server Setup",
+      "Data Migration Services",
+      "Backup & Recovery Systems",
     ],
   },
 ];
 
+// Tech stack data
 const techStack = [
-  {
-    name: "MongoDB",
-    icon: <SiMongodb />,
-    description: "MongoDB - NoSQL Database",
-  },
-  {
-    name: "Express",
-    icon: <FaServer />,
-    description: "Express - Node.js Web Framework",
-  },
-  {
-    name: "React",
-    icon: <SiReact />,
-    description: "React - Front-end Library",
-  },
-  {
-    name: "Node.js",
-    icon: <SiNodedotjs />,
-    description: "Node.js - Back-end JavaScript Runtime",
-  },
-  {
-    name: "HTML5",
-    icon: <SiHtml5 />,
-    description: "HTML5 - Markup Language",
-  },
-  {
-    name: "CSS3",
-    icon: <SiCss3 />,
-    description: "CSS3 - Styling Language",
-  },
-  {
-    name: "JavaScript",
-    icon: <SiJavascript />,
-    description: "JavaScript - Programming Language",
-  },
-  {
-    name: "TypeScript",
-    icon: <FaCode />,
-    description: "TypeScript - Superset of JavaScript",
-  },
-  {
-    name: "Redux",
-    icon: <SiRedux />,
-    description: "Redux - State Management Library",
-  },
-  {
-    name: "Next.js",
-    icon: <SiNextdotjs />,
-    description: "Next.js - React Framework",
-  },
-  {
-    name: "Git",
-    icon: <FaGit />,
-    description: "Git - Version Control System",
-  },
-  {
-    name: "AWS",
-    icon: <FaAws />,
-    description: "AWS - Cloud Computing Platform",
-  },
-  {
-    name: "Docker",
-    icon: <FaDocker />,
-    description: "Docker - Containerization Platform",
-  },
-  {
-    name: "Figma",
-    icon: <SiFigma />,
-    description: "Figma - Design Tool",
-  },
-  {
-    name: "Adobe",
-    icon: <SiAdobe />,
-    description: "Adobe - Design and Editing Software",
-  },
-  {
-    name: "Analytics",
-    icon: <FaChartBar />,
-    description: "Analytics - Data Tracking and Analysis",
-  },
-  {
-    name: "SEO",
-    icon: <FaSearch />,
-    description: "SEO - Search Engine Optimization",
-  },
-  {
-    name: "Social Media",
-    icon: <FaShareAlt />,
-    description: "Social Media - Online Platforms for Networking",
-  },
-  {
-    name: "Responsive",
-    icon: <SiScreencastify />,
-    description: "Responsive - Adaptable Web Design",
-  },
-  {
-    name: "Payments",
-    icon: <FaCreditCard />,
-    description: "Payments - Online Payment Solutions",
-  },
+  { name: "React", icon: <SiReact /> },
+  { name: "Next.js", icon: <SiNextdotjs /> },
+  { name: "Node.js", icon: <SiNodedotjs /> },
+  { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+  { name: "MongoDB", icon: <SiMongodb /> },
+  { name: "Express", icon: <SiExpress /> },
+  { name: "AWS", icon: <FaAws /> },
+  { name: "Vercel", icon: <SiVercel /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "JavaScript", icon: <SiJavascript /> },
+  { name: "HTML5", icon: <SiHtml5 /> },
+  { name: "CSS3", icon: <SiCss3 /> },
+  { name: "Figma", icon: <SiFigma /> },
+  { name: "Git", icon: <SiGit /> },
+  { name: "Firebase", icon: <SiFirebase /> },
+  { name: "Mobile Dev", icon: <FaMobileAlt /> },
+  { name: "Databases", icon: <FaDatabase /> },
+  { name: "Custom APIs", icon: <FaCode /> },
 ];
 
-const Services = () => {
+const Services = ({ forwardedRef }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="bg-black inset-0 items-center text-center flex flex-col justify-center min-h-screen">
-      <div className="font-bold text-4xl">Services We Provide</div>
-      <p className="mt-16 text-lg max-w-2xl mx-auto">
-        At Websol, we offer comprehensive web solutions to empower your digital
-        presence:
-      </p>
-      {/* services carousel  */}
-      <div className="my-4 w-full h-full flex justify-center mt-14">
-        <Carousel className="w-[90%] md:w-[70%] ">
-          <CarouselContent>
-            {serviceList.map((item) => (
-              <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-4">
-                  <Card className="bg-[#232329] shadow-lg transition-transform transform hover:scale-105 hover:border-4 hover:border-double border-purple-400 h-[32rem] rounded-xl opacity-90">
-                    <CardHeader className="text-black">
-                      <CardTitle className="text-2xl font-semibold bg-clip-text ">
-                        <span class="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                          {item.name}
-                        </span>
-                      </CardTitle>
-                      <CardDescription className="mt-2 text-gray-200">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-
-                    <CardContent className="flex flex-col items-center justify-center p-6">
-                      <div className="mt-4">
-                        {item.services && item.services.length > 0 ? (
-                          item.services.map((service, index) => (
-                            <p
-                              key={index}
-                              className="text-white bg-gray-600 px-4 py-2 shadow-md mb-2 rounded-xl w-[15rem]"
-                            >
-                              {service}
-                            </p>
-                          ))
-                        ) : (
-                          <p className="text-gray-300">
-                            No technologies listed.
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-
-          <CarouselPrevious className="bg-slate-600 text-white hidden md:flex" />
-          <CarouselNext className="bg-slate-600 text-white  hidden md:flex" />
-        </Carousel>
+    <section
+      ref={forwardedRef}
+      className="bg-[#000000] text-[#F5E6CC] py-20 px-4 relative overflow-hidden"
+    >
+      {/* Background elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-[#D4A017]/5 blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-[#4A2C2A]/5 blur-3xl"></div>
+        <div className="absolute h-px w-full bg-gradient-to-r from-transparent via-[#D4A017]/20 to-transparent top-0"></div>
       </div>
-      <p className="mt-10 text-lg max-w-2xl mx-auto">
-        Our team of experts at Websol delivers tailored solutions for businesses
-        of all sizes, from startups to enterprises. Let us bring your digital
-        vision to life with cutting-edge technology and industry best practices.
-      </p>
 
-      {/* Tech Stack Section */}
-
-      <div className="mt-14 w-[80%]">
-        <h2 className="text-3xl font-bold text-white mb-4">Tech Stack</h2>
-        <div className="grid grid-cols-5 gap-x-6 gap-y-6 mt-14">
-          {techStack.map((tech, index) => (
-            <TooltipProvider delayDuration={100} key={index}>
-              <Tooltip>
-                <TooltipTrigger className="w-full bg-[#232329] h-[100px] md:h-[150px] rounded-xl flex justify-center items-center group">
-                  <div className="text-3xl md:text-6xl group-hover:text-accent transition-all duration-300">
-                    {tech.icon}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{tech.name}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ))}
+      <div className="container mx-auto relative z-10">
+        {/* Section heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold mb-4 inline-block relative">
+            Our <span className="text-[#D4A017]">Services</span>
+            <div className="h-1 w-20 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
+          </h2>
+          <p className="text-xl max-w-3xl mx-auto mt-6">
+            We provide innovative tech solutions without the fluff. From custom
+            websites to specialized applications, we build what you need.
+          </p>
         </div>
-        <p className="mt-16 text-lg max-w-2xl mx-auto">
-          Don{"'"}t see what you are looking for? Contact us to discuss you
-          specific needs.
-        </p>
+
+        {/* Services carousel */}
+        <div className="my-4 w-full flex justify-center mt-12">
+          <Carousel className="w-full max-w-5xl">
+            <CarouselContent>
+              {serviceCategories.map((item) => (
+                <CarouselItem
+                  key={item.id}
+                  className="md:basis-1/2 lg:basis-1/3 pl-4"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="p-1"
+                  >
+                    <div className="bg-gradient-to-b from-[#D4A017]/20 to-[#4A2C2A]/20 p-[1px] rounded-xl h-full">
+                      <div className="bg-[#000000] h-full rounded-xl p-6 flex flex-col shadow-lg transition-all duration-300 hover:translate-y-[-5px]">
+                        <div className="text-[#D4A017] mb-4 flex justify-center">
+                          {item.icon}
+                        </div>
+
+                        <h3 className="text-2xl font-bold mb-3 text-[#F5E6CC]">
+                          {item.name}
+                        </h3>
+
+                        <p className="text-[#F5E6CC]/80 mb-6">
+                          {item.description}
+                        </p>
+
+                        <div className="flex-1 flex flex-col">
+                          <div className="space-y-2">
+                            {item.services.map((service, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center py-2 px-3 text-sm bg-[#4A2C2A]/20 rounded-lg"
+                              >
+                                <div className="w-2 h-2 rounded-full bg-[#D4A017] mr-3"></div>
+                                <span>{service}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
+              <CarouselPrevious className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
+              <CarouselNext className="relative inset-0 translate-y-0 bg-[#000000] border border-[#D4A017]/30 text-[#D4A017] hover:bg-[#D4A017] hover:text-[#000000]" />
+            </div>
+          </Carousel>
+        </div>
+
+        {/* Separator */}
+        <div className="w-full max-w-4xl mx-auto my-20 h-px bg-gradient-to-r from-transparent via-[#D4A017]/30 to-transparent"></div>
+
+        {/* Tech Stack Section */}
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+          className="mt-14 max-w-5xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Our Tech <span className="text-[#D4A017]">Arsenal</span>
+          </h2>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
+            {techStack.map((tech, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="aspect-square"
+              >
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger className="w-full h-full bg-[#000000] border border-[#D4A017]/20 rounded-xl flex justify-center items-center group hover:bg-[#D4A017]/5 transition-all duration-300">
+                      <div className="text-3xl md:text-4xl text-[#D4A017]/80 group-hover:text-[#D4A017] transition-all duration-300">
+                        {tech.icon}
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-[#000000] border border-[#D4A017]/30 text-[#F5E6CC]">
+                      <p>{tech.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <p className="text-lg max-w-2xl mx-auto">
+              Don't see what you're looking for? No problem. We adapt to your
+              tech needs, not the other way around.
+            </p>
+            <div className="mt-8 inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
+              <button
+                className="bg-[#000000] rounded-full px-6 py-3 text-[#F5E6CC] font-bold hover:bg-transparent transition-all duration-300"
+                // onClick={() =>
+                //   document
+                //     .getElementById("contact")
+                //     .scrollIntoView({ behavior: "smooth" })
+                // }
+              >
+                Discuss Your Project
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

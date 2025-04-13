@@ -1,66 +1,167 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {
+  FaPhoneAlt,
+  FaLinkedin,
+  FaInstagram,
+  FaFacebook,
+} from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
-  return (
-    <div className="relative w-full h-screen flex items-center justify-center text-center">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/assets/bg2.png"
-          alt="Background"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-50"
-        />
-      </div>
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black opacity-70 z-10" />
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
+
+  return (
+    <section className="relative w-full min-h-screen flex items-center justify-center text-center overflow-hidden bg-[#000000]">
+      {/* Background with Gradient and Particle Effect */}
+      <div className="absolute inset-0 z-0">
+        {/* Uncomment if using background image */}
+        {/* <Image
+          src="/assets/bg2.png"
+          alt="Tech Background"
+          fill
+          className="object-cover opacity-20"
+          priority
+        /> */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#000000] via-[#000000]/90 to-[#000000] z-5" />
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          <div className="particle particle-1" />
+          <div className="particle particle-2" />
+          <div className="particle particle-3" />
+        </div>
+      </div>
 
       {/* Content */}
-      <div className="relative z-20 p-6 text-white">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4">
-          Innovate. Create. Dominate.
-        </h1>
-        <p className="text-xl md:text-2xl mb-6">
-          Transform Your Online Presence with Websol
-        </p>
-        <div className="flex justify-center gap-4 mb-6">
-          <Button className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg">
-            Get Started
+      <motion.div
+        ref={ref}
+        variants={containerVariants}
+        initial="hidden"
+        animate={controls}
+        className="relative z-20 p-6 md:p-10 text-[#F5E6CC] max-w-4xl mx-auto"
+      >
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] bg-clip-text text-transparent"
+        >
+          Unleash Your Tech Vision
+        </motion.h1>
+        <motion.p
+          variants={itemVariants}
+          className="text-xl md:text-2xl mb-8 font-medium"
+        >
+          ByteNoBS Delivers No-Nonsense Solutions with Power and Precision
+        </motion.p>
+        <motion.div
+          variants={itemVariants}
+          className="flex justify-center gap-6 mb-10"
+        >
+          <Button
+            asChild
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#F5E6CC] rounded-full hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg hover:text-[#000000]"
+          >
+            <a href="/contact">
+              <FaPhoneAlt className="text-[#F5E6CC] group-hover:text-[#000000]" />
+              Get in Touch
+            </a>
           </Button>
-        </div>
+        </motion.div>
 
         {/* Social Media Icons */}
-        <div className="flex justify-center gap-6 mt-6">
+        <motion.div
+          variants={itemVariants}
+          className="flex justify-center gap-6 text-2xl"
+        >
           <a
-            href="https://github.com/yourprofile"
+            href="https://www.linkedin.com/company/bytenobs/posts/?feedView=all"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-[#F5E6CC] hover:text-[#D4A017] transition-colors duration-300"
           >
-            <FaGithub className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
+            <FaLinkedin />
           </a>
           <a
-            href="https://linkedin.com/in/yourprofile"
+            href="https://www.instagram.com/bytenobs/"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-[#F5E6CC] hover:text-[#D4A017] transition-colors duration-300"
           >
-            <FaLinkedin className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
+            <FaInstagram />
           </a>
           <a
-            href="https://x.com/yourprofile"
+            href="https://www.facebook.com/profile.php?id=61574937133272"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-[#F5E6CC] hover:text-[#D4A017] transition-colors duration-300"
           >
-            <FaTwitter className="text-white hover:text-purple-500 transition-colors duration-300 text-2xl" />
+            <FaFacebook />
           </a>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Particle Effect Styles */}
+      <style jsx>{`
+        .particle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: #d4a017;
+          border-radius: 50%;
+          animation: float 15s infinite;
+        }
+        .particle-1 {
+          left: 20%;
+          top: 30%;
+          animation-delay: 0s;
+        }
+        .particle-2 {
+          left: 70%;
+          top: 60%;
+          animation-delay: 2s;
+        }
+        .particle-3 {
+          left: 40%;
+          top: 80%;
+          animation-delay: 4s;
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0) scale(1);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translateY(-50px) scale(1.5);
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateY(0) scale(1);
+            opacity: 0.8;
+          }
+        }
+      `}</style>
+    </section>
   );
 };
 
