@@ -71,7 +71,7 @@ const About = ({ forwardedRef }) => {
             <div className="h-1 w-24 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
           </h2>
           <p className="text-xl max-w-3xl mx-auto mt-6">
-            We're a tech solutions agency with a simple mission: deliver
+            We{"'"}re a tech solutions agency with a simple mission: deliver
             innovative tech solutions without the fluff. From custom websites to
             sophisticated applications, we build what you need.
           </p>
@@ -98,7 +98,7 @@ const About = ({ forwardedRef }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <p className="text-2xl font-bold bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] bg-clip-text text-transparent">
-                  "Innovative Tech Solutions, No Fluff."
+                  &quot;Innovative Tech Solutions, No Fluff.&quot;
                 </p>
               </div>
             </div>
@@ -121,9 +121,9 @@ const About = ({ forwardedRef }) => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-lg mb-6"
             >
-              ByteNoBS isn't just another web dev shop. We're problem-solvers
-              who'll build whatever you throw at us—website, app, or AI
-              tool—with zero hassle.
+              ByteNoBS isnt just another web dev shop. We&apos;re
+              problem-solvers who&apos;ll build whatever you throw at
+              us—website, app, or AI tool—with zero hassle.
             </motion.p>
 
             <motion.p
@@ -132,10 +132,10 @@ const About = ({ forwardedRef }) => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="text-lg mb-10"
             >
-              Starting with custom web development, we're built to tackle any
-              tech challenge. From expense managers for shop owners to portfolio
-              sites, PDF bookmarkers, or AI-powered apps, we create what clients
-              need.
+              Starting with custom web development, we&apos;re built to tackle
+              any tech challenge. From expense managers for shop owners to
+              portfolio sites, PDF bookmarkers, or AI-powered apps, we create
+              what clients need.
             </motion.p>
 
             <motion.div
@@ -146,8 +146,8 @@ const About = ({ forwardedRef }) => {
             >
               <p className="font-bold text-xl mb-2">Our Promise:</p>
               <p className="italic">
-                "ByteNoBS is your tech partner, not a vendor. Let's make shit
-                happen."
+                &quot;ByteNoBS is your tech partner, not a vendor. Let&apos;s
+                make shit happen.&quot;
               </p>
             </motion.div>
           </div>

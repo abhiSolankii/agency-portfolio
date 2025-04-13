@@ -179,8 +179,8 @@ const Testimonials = ({ forwardedRef }) => {
             <div className="h-1 w-28 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
           </h2>
           <p className="text-xl max-w-3xl mx-auto mt-6">
-            Don't take our word for it. Here's what our clients say about our
-            no-nonsense approach.
+            Don&apos;t take our word for it. Here&apos;s what our clients say
+            about our no-nonsense approach.
           </p>
         </div>
 
@@ -244,7 +244,7 @@ const Testimonials = ({ forwardedRef }) => {
                   <div className="flex-grow flex items-center justify-center text-center px-4">
                     <FaQuoteLeft className="text-[#D4A017]/20 text-4xl absolute top-1/3 left-4 transform -translate-y-1/2" />
                     <p className="text-[#F5E6CC]/80 line-clamp-3">
-                      "{testimonial.testimonial.substring(0, 100)}..."
+                      &quot;{testimonial.testimonial.substring(0, 100)}...&quot;
                     </p>
                     <FaQuoteRight className="text-[#D4A017]/20 text-4xl absolute bottom-1/3 right-4 transform translate-y-1/2" />
                   </div>
@@ -309,7 +309,7 @@ const Testimonials = ({ forwardedRef }) => {
             Ready to join our success stories?
           </h3>
           <p className="mb-8 max-w-2xl mx-auto">
-            Let's create something amazing together. No BS, just results.
+            Let&apos;s create something amazing together. No BS, just results.
           </p>
           <button
             onClick={() =>

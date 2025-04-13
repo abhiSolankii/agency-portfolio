@@ -294,8 +294,8 @@ const Services = ({ forwardedRef }) => {
 
           <div className="mt-16 text-center">
             <p className="text-lg max-w-2xl mx-auto">
-              Don't see what you're looking for? No problem. We adapt to your
-              tech needs, not the other way around.
+              Don&apos;t see what you&apos;re looking for? No problem. We adapt
+              to your tech needs, not the other way around.
             </p>
             <div className="mt-8 inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
               <button
