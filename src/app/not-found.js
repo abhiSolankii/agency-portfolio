@@ -21,9 +21,9 @@ export default function NotFound() {
           <h1 className="text-8xl font-bold mb-4 text-[#D4A017]">404</h1>
           <h2 className="text-4xl font-bold mb-6">Page Not Found</h2>
           <p className="text-xl mb-8 text-[#F5E6CC]/80">
-            Looks like you've ventured into uncharted territory.
+            Looks like you&apos;ve ventured into uncharted territory.
             <br />
-            Let's get you back on track.
+            Let&apos;s get you back on track.
           </p>
 
           <Link href="/" className="inline-block relative group">
