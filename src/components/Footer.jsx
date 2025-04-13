@@ -1,99 +1,118 @@
-"use client";
 import React from "react";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-  FaGithub,
-  FaInstagram,
-} from "react-icons/fa";
+import { motion } from "framer-motion";
+import { SiLinkedin, SiInstagram, SiFacebook, SiX } from "react-icons/si";
+import Image from "next/image";
+
+const footerLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "FAQ", href: "/faq" },
+  { name: "Contact", href: "/contact" },
+];
 
 const Footer = () => {
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
+
   return (
-    <footer className="bg-black text-white py-10">
-      <div className="container mx-auto px-6 flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-            WebSol.
-          </h1>
-          <p className="text-gray-400 text-center text-lg mt-2">
-            Crafting digital experiences with passion and precision. Let{"'"}s
-            connect!
+    <footer className="bg-[#000000] text-[#F5E6CC] py-12 px-4 relative">
+      {/* Background gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4A017]/30 to-transparent"></div>
+
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        {/* Logo */}
+        <motion.div variants={itemVariants} initial="hidden" animate="visible">
+          <Image
+            src="/assets/logo.png" // Replace with your stylized "B" logo path
+            alt="ByteNoBS Logo"
+            width={80}
+            height={80}
+            className="mb-4"
+          />
+          <p className="text-sm text-[#F5E6CC]/80">
+            Innovative Tech Solutions, No Fluff.
           </p>
-        </div>
-        <div className="w-full flex flex-col md:flex-row text-center gap-8 justify-center">
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            Services
-          </a>
-          {/* <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            Work
-          </a> */}
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            Testimonials
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-          >
-            Contact
-          </a>
-        </div>
-        <div className="flex justify-center space-x-6">
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-            aria-label="Facebook"
-          >
-            <FaFacebookF className="text-xl md:text-3xl" />
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-            aria-label="Twitter"
-          >
-            <FaTwitter className="text-xl md:text-3xl" />
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedinIn className="text-xl md:text-3xl" />
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-            aria-label="GitHub"
-          >
-            <FaGithub className="text-xl md:text-3xl" />
-          </a>
-          <a
-            href="#"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
-            aria-label="Instagram"
-          >
-            <FaInstagram className="text-xl md:text-3xl" />
-          </a>
-        </div>
-        <div className="text-gray-500 text-sm text-center">
-          &copy; {new Date().getFullYear()} WebSol. All rights reserved.
-        </div>
+        </motion.div>
+
+        {/* Navigation */}
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
+          <h4 className="text-lg font-bold mb-4 text-[#D4A017]">Explore</h4>
+          <ul className="space-y-2 text-center">
+            {footerLinks.map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Socials */}
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
+          <h4 className="text-lg font-bold mb-4 text-[#D4A017]">Connect</h4>
+          <div className="flex space-x-6">
+            <a
+              href="https://www.linkedin.com/company/bytenobs/posts/?feedView=all"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+            >
+              <SiLinkedin className="text-2xl" />
+            </a>
+            <a
+              href="https://www.instagram.com/bytenobs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+            >
+              <SiInstagram className="text-2xl" />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61574937133272"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+            >
+              <SiFacebook className="text-2xl" />
+            </a>
+            <a
+              href="https://x.com/bytenobs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+            >
+              <SiX className="text-2xl" />
+            </a>
+          </div>
+        </motion.div>
       </div>
+
+      {/* Copyright */}
+      <motion.div
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+        className="text-center mt-8 text-[#F5E6CC]/60 text-sm"
+      >
+        &copy; 2025 ByteNoBS. All rights reserved.
+      </motion.div>
     </footer>
   );
 };
