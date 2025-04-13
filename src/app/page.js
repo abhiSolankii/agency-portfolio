@@ -6,9 +6,8 @@ import Home from "@/components/Home";
 import Navbar from "@/components/Navbar";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
-import { Separator } from "@/components/ui/separator";
 import About from "@/components/About";
-import FAQ from "@/components/Faq";
+import Faq from "@/components/Faq";
 
 const Page = () => {
   const homeRef = useRef(null);
@@ -54,7 +53,7 @@ const Page = () => {
           <Testimonials />
         </section>
         <section ref={faqRef}>
-          <FAQ />
+          <Faq />
         </section>
         <section ref={contactRef}>
           <Contact />
