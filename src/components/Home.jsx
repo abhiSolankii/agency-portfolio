@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Head from "next/head";
 
-const Home = () => {
+const Home = ({ forwardedRef, scrollToSection, refs }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
 
@@ -81,7 +81,8 @@ const Home = () => {
             variants={itemVariants}
             className="text-xl md:text-2xl mb-8 font-medium"
           >
-            ByteNoBS Delivers No-Nonsense Solutions with Power and Precision
+            ByteNoBS Delivers Innovative and Cost-effective Solutions with Power
+            and Precision
           </motion.p>
           <motion.div
             variants={itemVariants}
@@ -91,10 +92,10 @@ const Home = () => {
               asChild
               className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#F5E6CC] rounded-full hover:scale-105 transition-transform duration-300 ease-in-out shadow-lg hover:text-[#000000]"
             >
-              <a href="/contact">
+              <button onClick={() => scrollToSection(refs.contactRef)}>
                 <FaPhoneAlt className="text-[#F5E6CC] group-hover:text-[#000000]" />
                 Get in Touch
-              </a>
+              </button>
             </Button>
           </motion.div>
 

@@ -141,7 +141,7 @@ const techStack = [
   { name: "Custom APIs", icon: <FaCode /> },
 ];
 
-const Services = ({ forwardedRef }) => {
+const Services = ({ forwardedRef, scrollToSection, refs }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.2,
@@ -178,10 +178,12 @@ const Services = ({ forwardedRef }) => {
   return (
     <>
       <Head>
-        <title>ByteNoBS - Services | No-Nonsense Tech Solutions</title>
+        <title>
+          ByteNoBS - Services | Innovative and cost-effective Tech Solutions
+        </title>
         <meta
           name="description"
-          content="Explore ByteNoBS's no-nonsense tech services. From custom web development to AI solutions, we deliver results without the fluff."
+          content="Explore ByteNoBS's innovative and cost-effective tech services. From custom web development to AI solutions, we deliver results without the fluff."
         />
       </Head>
       <section
@@ -310,11 +312,7 @@ const Services = ({ forwardedRef }) => {
               <div className="mt-8 inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
                 <button
                   className="bg-[#000000] rounded-full px-6 py-3 text-[#F5E6CC] font-bold hover:bg-transparent transition-all duration-300"
-                  // onClick={() =>
-                  //   document
-                  //     .getElementById("contact")
-                  //     .scrollIntoView({ behavior: "smooth" })
-                  // }
+                  onClick={() => scrollToSection(refs.contactRef)}
                 >
                   Discuss Your Project
                 </button>

@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { FiMail, FiSend } from "react-icons/fi";
+import { FiMail, FiPhone, FiSend } from "react-icons/fi";
 import { SiLinkedin, SiInstagram, SiFacebook, SiX } from "react-icons/si";
 import Head from "next/head";
 
@@ -33,6 +33,12 @@ const Contact = () => {
     e.preventDefault();
     setStatus("sending");
 
+    //validate data
+    if (formData.name === "" && formData.email === "") {
+      setStatus("empty");
+      setTimeout(() => setStatus("idle"), 3000);
+      return;
+    }
     try {
       const response = await fetch("https://formspree.io/f/xqapndbd", {
         method: "POST",
@@ -86,7 +92,7 @@ const Contact = () => {
         <title>ByteNoBS - Contact Us</title>
         <meta
           name="description"
-          content="Have a project in mind? Let’s connect! ByteNoBS is here to provide no-nonsense tech solutions tailored to your needs."
+          content="Have a project in mind? Let’s connect! ByteNoBS is here to provide innovative and cost-effective tech solutions tailored to your needs."
         />
       </Head>
       <section className="bg-[#000000] text-[#F5E6CC] py-20 px-4 relative overflow-hidden">
@@ -100,12 +106,16 @@ const Contact = () => {
           {/* Section heading */}
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 inline-block relative">
-              Let’s <span className="text-[#D4A017]">Talk</span>
+              Let{"'"}s <span className="text-[#D4A017]">Talk</span>
               <div className="h-1 w-20 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
             </h2>
             <p className="text-xl max-w-3xl mx-auto mt-6">
-              Got an idea? A problem? Or just want to chat tech? Drop us a
-              line—no fluff, just action.
+              Get a rapid response by filling out this form. Our team will
+              contact you within 24 hours to discuss your project in detail.
+            </p>
+            <p className="text-lg max-w-3xl mx-auto mt-2 text-[#D4A017] opacity-80 lg:px-20">
+              Need immediate assistance? Feel free to call us directly or drop
+              us an email—we're here to help!
             </p>
           </div>
 
@@ -162,7 +172,7 @@ const Contact = () => {
                     <Button
                       onClick={handleSubmit}
                       disabled={status === "sending"}
-                      className={`w-full bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#000000] font-bold hover:bg-[#D4A017] transition-all duration-300 ${
+                      className={`w-full bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#000000] font-bold hover:to-[#D4A017] hover:from-[#4A2C2A] transition-all duration-300 ${
                         status === "sending"
                           ? "opacity-50 cursor-not-allowed"
                           : ""
@@ -191,6 +201,15 @@ const Contact = () => {
                       Oops, something went wrong. Try again later.
                     </motion.p>
                   )}
+                  {status === "empty" && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-red-400 text-center"
+                    >
+                      Please fill at least name or email.
+                    </motion.p>
+                  )}
                 </form>
               </div>
             </motion.div>
@@ -204,13 +223,22 @@ const Contact = () => {
             >
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
-                <a
-                  href="mailto:bytenobs@gmail.com"
-                  className="flex items-center text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
-                >
-                  <FiMail className="mr-3 text-2xl" />
-                  bytenobs@gmail.com
-                </a>
+                <div className="flex flex-col gap-2 justify-center">
+                  <a
+                    href="mailto:bytenobs@gmail.com"
+                    className="flex items-center text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                  >
+                    <FiMail className="mr-3 text-2xl" />
+                    bytenobs@gmail.com
+                  </a>
+                  <a
+                    href="tel:+918669431976"
+                    className="flex items-center text-[#F5E6CC]/80 hover:text-[#D4A017] transition-all duration-300"
+                  >
+                    <FiPhone className="mr-3 text-2xl" />
+                    +91 8669431976
+                  </a>
+                </div>
               </motion.div>
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-bold mb-4">Follow Us</h3>

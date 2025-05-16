@@ -43,7 +43,7 @@ const faqs = [
   },
 ];
 
-const Faqs = ({ forwardedRef }) => {
+const Faqs = ({ forwardedRef, scrollToSection, refs }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
 
@@ -65,7 +65,9 @@ const Faqs = ({ forwardedRef }) => {
   return (
     <>
       <Head>
-        <title>ByteNoBS - FAQ | No-Nonsense Tech Solutions</title>
+        <title>
+          ByteNoBS - FAQ | nnovatice and cost-effective Tech Solutions
+        </title>
         <meta
           name="description"
           content="Answers to common questions about ByteNoBS’s custom websites, apps, and AI tools. Transparent, straightforward, no fluff."
@@ -138,12 +140,12 @@ const Faqs = ({ forwardedRef }) => {
               Still curious? Let’s talk—your project’s waiting.
             </p>
             <div className="inline-block bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] p-[1px] rounded-full">
-              <a
-                href="/contact"
+              <button
+                onClick={() => scrollToSection(refs.contactRef)}
                 className="block bg-[#000000] rounded-full px-6 py-3 text-[#F5E6CC] font-bold hover:bg-transparent transition-all duration-300"
               >
                 Get in Touch
-              </a>
+              </button>
             </div>
           </motion.div>
         </div>

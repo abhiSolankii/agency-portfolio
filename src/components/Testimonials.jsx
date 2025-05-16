@@ -6,111 +6,9 @@ import ReactCardFlip from "react-card-flip";
 import { FaQuoteLeft, FaQuoteRight, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Head from "next/head";
+import { testimonialsData } from "@/lib/data";
 
-// Testimonials data
-const testimonialsList = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    title: "Founder, Ascend Fitness",
-    company: "Ascend Fitness",
-    image: "", // Add placeholder images
-    testimonial:
-      "ByteNoBS completely transformed our online presence. Their straight-to-the-point approach saved us time and money. Our new website loaded in half the time and conversions increased by 30% within weeks.",
-    rating: 5,
-    project: "Fitness Studio Website & Booking System",
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    title: "CEO, TechStart Solutions",
-    company: "TechStart Solutions",
-    image: "",
-    testimonial:
-      "We hired ByteNoBS to build our expense management tool, and they delivered exactly what we needed without any unnecessary features. Clean code, excellent documentation, and on time. Couldn't ask for more.",
-    rating: 5,
-    project: "Custom Expense Management Application",
-  },
-  {
-    id: 3,
-    name: "Alex Rodriguez",
-    title: "Creative Director, Visual Pulse",
-    company: "Visual Pulse",
-    image: "",
-    testimonial:
-      "As a design agency, we have high standards for our digital presence. ByteNoBS understood our vision immediately and executed flawlessly. Their transparent process made collaboration effortless.",
-    rating: 5,
-    project: "Design Portfolio Website",
-  },
-  {
-    id: 4,
-    name: "Jessica Williams",
-    title: "Owner, Craft & Co. Bakery",
-    company: "Craft & Co. Bakery",
-    image: "",
-    testimonial:
-      "Before ByteNoBS, our online ordering system was a nightmare. They rebuilt it from scratch in half the time another agency quoted us. Now orders flow smoothly and our customers love the experience.",
-    rating: 5,
-    project: "E-commerce Store & Order Management",
-  },
-  {
-    id: 5,
-    name: "David Thompson",
-    title: "Attorney, Thompson Legal",
-    company: "Thompson Legal",
-    image: "",
-    testimonial:
-      "ByteNoBS created a professional website and document management system that streamlined our client onboarding process. They cut through the technical jargon and delivered a solution that actually works.",
-    rating: 5,
-    project: "Legal Services Website & Document System",
-  },
-  {
-    id: 6,
-    name: "Priya Patel",
-    title: "Marketing Manager, Global Insights",
-    company: "Global Insights",
-    image: "",
-    testimonial:
-      "The PDF annotation tool ByteNoBS built for our research team has saved us countless hours of work. They understood exactly what we needed and didn't try to upsell us on features we wouldn't use.",
-    rating: 5,
-    project: "Custom PDF Annotation Tool",
-  },
-  {
-    id: 7,
-    name: "Robert Jackson",
-    title: "Founder, Remote Workspace",
-    company: "Remote Workspace",
-    image: "",
-    testimonial:
-      "We approached ByteNoBS with a complex idea for a workspace management tool. They not only built it perfectly but also added crucial features we hadn't even considered. Best tech investment we've made.",
-    rating: 5,
-    project: "Workspace Management Application",
-  },
-  {
-    id: 8,
-    name: "Emma Wilson",
-    title: "Digital Director, Fashion Forward",
-    company: "Fashion Forward",
-    image: "",
-    testimonial:
-      "Our e-commerce store needed a complete overhaul. ByteNoBS delivered a beautiful, fast site that showcases our products perfectly. Sales are up 45% since launch. We're thrilled with the results.",
-    rating: 5,
-    project: "E-commerce Platform Redesign",
-  },
-  {
-    id: 9,
-    name: "Thomas Rivera",
-    title: "Chief Technology Officer, DataDrive",
-    company: "DataDrive",
-    image: "",
-    testimonial:
-      "As a tech company ourselves, we have extremely high standards. ByteNoBS exceeded them all. Their AI integration work was brilliant, and they documented everything meticulously. A rare find in this industry.",
-    rating: 5,
-    project: "AI Data Analysis Dashboard",
-  },
-];
-
-const Testimonials = ({ forwardedRef }) => {
+const Testimonials = ({ forwardedRef, scrollToSection, refs }) => {
   const [isFlipped, setIsFlipped] = useState({});
   const [visibleCards, setVisibleCards] = useState(3);
   const controls = useAnimation();
@@ -163,14 +61,13 @@ const Testimonials = ({ forwardedRef }) => {
       },
     },
   };
-  console.log(visibleCards);
   return (
     <>
       <Head>
         <title>ByteNoBS - Client Testimonials</title>
         <meta
           name="description"
-          content="Discover how ByteNoBS has transformed businesses with no-nonsense tech solutions. Read our client testimonials and success stories."
+          content="Discover how ByteNoBS has transformed businesses with innovative and cost-effective tech solutions. Read our client testimonials and success stories."
         />
       </Head>
       <section
@@ -196,7 +93,7 @@ const Testimonials = ({ forwardedRef }) => {
             </h2>
             <p className="text-xl max-w-3xl mx-auto mt-6">
               Don&apos;t take our word for it. Here&apos;s what our clients say
-              about our no-nonsense approach.
+              about our innovative and cost-effective approach.
             </p>
           </div>
 
@@ -209,7 +106,7 @@ const Testimonials = ({ forwardedRef }) => {
             className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
             layout
           >
-            {testimonialsList.slice(0, visibleCards).map((testimonial) => (
+            {testimonialsData.slice(0, visibleCards).map((testimonial) => (
               <motion.div
                 key={testimonial.id}
                 variants={itemVariants}
@@ -314,7 +211,7 @@ const Testimonials = ({ forwardedRef }) => {
           </motion.div>
 
           {/* Load More Button */}
-          {visibleCards < testimonialsList.length && (
+          {visibleCards < testimonialsData.length && (
             <div className="w-full flex justify-center mt-12">
               <button onClick={loadMoreCards} className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
@@ -336,11 +233,7 @@ const Testimonials = ({ forwardedRef }) => {
               Let&apos;s create something amazing together. No BS, just results.
             </p>
             <button
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => scrollToSection(refs.contactRef)}
               className="px-8 py-3 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] text-[#F5E6CC] rounded-full hover:shadow-lg hover:shadow-[#D4A017]/20 transition-all duration-300"
             >
               Start Your Project

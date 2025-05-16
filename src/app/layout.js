@@ -10,7 +10,7 @@ export const metadata = {
   metadataBase: new URL("https://bytenobs.com"),
   title: "ByteNoBs",
   description:
-    "ByteNoBS - Your Tech Partner for No-Nonsense Solutions and Innovative Ideas",
+    "ByteNoBS - Delivering innovative, cost-effective tech solutions with precision.",
   keywords: [
     "ByteNoBS",
     "tech solutions",
@@ -47,7 +47,7 @@ export const metadata = {
         url: "/assets/og-image.jpg", // Create an OG image
         width: 1200,
         height: 630,
-        alt: "ByteNoBS - No-Nonsense Tech Solutions",
+        alt: "ByteNoBS - Delivering innovative, cost-effective tech solutions with precision.",
       },
     ],
   },

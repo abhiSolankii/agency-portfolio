@@ -35,7 +35,7 @@ const About = ({ forwardedRef }) => {
   const valueCards = [
     {
       icon: <FaCode className="text-[#D4A017] text-4xl" />,
-      title: "No-Nonsense Solutions",
+      title: "About ByteNobs innovative Solutions",
       description:
         "We cut through the technical jargon to deliver exactly what you need—no fluff, no unnecessary features, just pure functionality that works.",
     },
@@ -107,7 +107,8 @@ const About = ({ forwardedRef }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-6">
                   <p className="text-2xl font-bold bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] bg-clip-text text-transparent">
-                    &quot;Innovative Tech Solutions, No Fluff.&quot;
+                    &quot;Delivering innovative, cost-effective tech solutions
+                    with precision.&quot;
                   </p>
                 </div>
               </div>

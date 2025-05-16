@@ -17,6 +17,7 @@ const Navbar = ({ scrollToSection, refs }) => {
         home: refs.homeRef.current,
         about: refs.aboutRef.current,
         services: refs.servicesRef.current,
+        projects: refs.projectsRef.current,
         testimonials: refs.testimonialsRef.current,
         faq: refs.faqRef.current,
         contact: refs.contactRef.current,
@@ -25,7 +26,7 @@ const Navbar = ({ scrollToSection, refs }) => {
       for (const section in sections) {
         if (
           sections[section] &&
-          window.scrollY >= sections[section].offsetTop - 1
+          window.scrollY >= sections[section].offsetTop - window.innerHeight / 3
         ) {
           currentSection = section;
         }
@@ -47,7 +48,7 @@ const Navbar = ({ scrollToSection, refs }) => {
         <title>ByteNoBS - Unleash Your Tech Vision</title>
         <meta
           name="description"
-          content="ByteNoBS delivers no-nonsense tech solutions with power and precision. Unleash your vision today!"
+          content="ByteNoBS delivers innovative and cost-effective tech solutions with power and precision. Unleash your vision today!"
         />
       </Head>
       <header
@@ -73,6 +74,7 @@ const Navbar = ({ scrollToSection, refs }) => {
                 "Home",
                 "About",
                 "Services",
+                "Projects",
                 "Testimonials",
                 "FAQ",
                 "Contact",
