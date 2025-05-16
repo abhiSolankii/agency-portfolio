@@ -115,7 +115,7 @@ const Contact = () => {
             </p>
             <p className="text-lg max-w-3xl mx-auto mt-2 text-[#D4A017] opacity-80 lg:px-20">
               Need immediate assistance? Feel free to call us directly or drop
-              us an email—we're here to help!
+              us an email—we&apos;re here to help!
             </p>
           </div>
 

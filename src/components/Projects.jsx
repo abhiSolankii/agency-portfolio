@@ -77,8 +77,8 @@ const Projects = ({ forwardedRef, scrollToSection, refs }) => {
               <div className="h-1 w-28 bg-gradient-to-r from-[#D4A017] to-[#4A2C2A] mx-auto mt-4"></div>
             </h2>
             <p className="text-xl max-w-3xl mx-auto mt-6">
-              Real solutions for real businesses. Check out how we've helped our
-              clients succeed.
+              Real solutions for real businesses. Check out how we&apos;ve
+              helped our clients succeed.
             </p>
           </div>
 
